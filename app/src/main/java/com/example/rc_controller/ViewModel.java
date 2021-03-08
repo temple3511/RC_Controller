@@ -9,12 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel extends androidx.lifecycle.ViewModel {
-    MutableLiveData<ArrayList<BluetoothDevice>> scannedDevices = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<BluetoothDevice>> scannedDevices = new MutableLiveData<>();
+    private final MutableLiveData<SelectedDevice> selectedDevice = new MutableLiveData<>();
 
+    public ViewModel() {
+        super();
+        scannedDevices.setValue(new ArrayList<>());
+        selectedDevice.setValue(new SelectedDevice("", null));
+    }
     public LiveData<ArrayList<BluetoothDevice>> getDevices(){
-        if(scannedDevices.getValue() == null){
-            scannedDevices.setValue(new ArrayList<>());
-        }
         return scannedDevices;
+    }
+
+    public LiveData<SelectedDevice> getSelectedDevice(){
+        return selectedDevice;
     }
 }
